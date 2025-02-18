@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<center>
+    <h1>Главная страница</h1>
+    <hr>
+    <h1>Категории</h1>
+    {% for category in categories %}
+   <a href="{% url 'category' category.title %}"><h2>{{category.title}}</h2></a>
+    {%endfor%}
+
+  {% for car in cars %}
+  <hr>
+  <a href="{% url 'detail' car.pk %}"><h2>Название:{{car.title}}</h2></a>
+  <h2>Модель:{{car.model}}</h2>
+  <h2>Цвет:{{car.color}}</h2>
+  <h2>Год:{{car.year}}</h2>
+  {%endfor%}
+
+
+</center>
+
+</body>
+</html>
