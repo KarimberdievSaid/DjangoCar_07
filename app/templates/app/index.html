@@ -1,29 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Car Gallery</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Стили для навигационной панели */
+    .navbar {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Карточки автомобилей */
+    .card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img-top {
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      text-align: center;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .search-container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background: #343a40;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
 
-<center>
-    <h1>Главная страница</h1>
-    <hr>
-    <h1>Категории</h1>
-    {% for category in categories %}
-   <a href="{% url 'category' category.title %}"><h2>{{category.title}}</h2></a>
-    {%endfor%}
+  <!-- Навигационная панель -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Car Gallery</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <form class="d-flex ms-auto search-container" method="get" action=".">
+          <input class="form-control me-2" type="search" placeholder="🔍 Поиск..." aria-label="Search" name="search">
+          <button class="btn btn-outline-light" type="submit">Найти</button>
+        </form>
+      </div>
+    </div>
+  </nav>
 
-  {% for car in cars %}
-  <hr>
-  <a href="{% url 'detail' car.pk %}"><h2>Название:{{car.title}}</h2></a>
-  <h2>Модель:{{car.model}}</h2>
-  <h2>Цвет:{{car.color}}</h2>
-  <h2>Год:{{car.year}}</h2>
-  {%endfor%}
+  <!-- Основное содержимое -->
+  <div class="container my-5">
+    <div class="row">
+      {% for car in cars %}
+        <div class="col-12 col-sm-6 col-lg-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.title }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ car.title }}</h5>
+              <p class="card-text">{{ car.description|truncatechars:50 }}</p>
+              <a href="#" class="btn btn-outline-primary">Подробнее</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 
+  <!-- Футер -->
+  <footer class="footer">
+    <p>&copy; 2025 Car Gallery. Все права защищены.</p>
+  </footer>
 
-</center>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
