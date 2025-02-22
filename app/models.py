@@ -34,7 +34,7 @@ class Car(models.Model):
 
 
    def __str__(self):
-       return self.title
+       return f'{self.title} | {self.id}'
 
    class Meta:
        verbose_name = "Машина"
